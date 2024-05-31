@@ -1,0 +1,9 @@
+# Node modules
+node_modules
+
+# Build files
+dist
+out
+
+# OS-specific files
+.DS_Store

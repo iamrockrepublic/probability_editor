@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>概率计算&编辑</title>
+    <!-- chart需要放到本地 -->
+    <script src="./thirdparty/chart.js"></script>
+</head>
+<body>
+    <div class="chart-continaer">
+        <canvas id="myChart" width="400" height="150"></canvas>
+        <div id="info-container">
+        </div>
+        <div id="add-container">
+            预计期望: <input type="text" id="expectation_input" value="0"><br>
+            实际期望: <span id="calculated_expectation">0</span> <br>
+            实际概率: <span id="calculated_prob">0</span> <br>
+            <br>
+            <input type="text" id="add_value_input" placeholder="待添加价值"> 
+            <input type="button" id="add_btn" value="添加"> 
+        </div>
+        <p id="err_text"></p>        
+      </div>
+
+    <script src="./probChart.js"></script>
+</body>
+</html>

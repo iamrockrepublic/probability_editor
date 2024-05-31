@@ -1,0 +1,24 @@
+{
+  "name": "probability_editor",
+  "version": "1.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^30.0.8",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.iamrock.prob_editor",
+    "mac": {
+      "target":[{"target":"dmg", "arch":["x64", "arm64"]}],
+      "icon": "./build/icon.png"
+    }
+  }
+}
