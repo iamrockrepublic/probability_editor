@@ -2,6 +2,7 @@ var ctx = document.getElementById("myChart").getContext("2d");
 var errText = document.getElementById("err_text");
 
 var appData = {
+  minMaxValue: 0.3,
   expectation: 5,
   toAddValue: 0,
   probItems: [],
@@ -249,7 +250,8 @@ function calculateProb() {
       );
       probItem.current_prob =
         remainMinMax.min_valid_prob +
-        (remainMinMax.max_valid_prob - remainMinMax.min_valid_prob) * 0.3;
+        (remainMinMax.max_valid_prob - remainMinMax.min_valid_prob) *
+          appData.minMaxValue;
       //   debugger;
       totalProb -= probItem.current_prob;
       totalExpectation -= probItem.current_prob * probItem.value;

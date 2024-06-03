@@ -34,6 +34,14 @@
           </div>
         </div>
         <div id="add-container">
+          概率调整值:<input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            v-model="minMaxValue"
+            @input="refresh"
+          />{{minMaxValue}}<br />
           预计期望:
           <input
             type="text"
@@ -50,7 +58,7 @@
           实际概率:
           <span id="calculated_prob">{{calculatedProb | toFixed(4)}}</span>
           <br />
-          <br />
+          待添加价值:
           <input
             type="text"
             id="add_value_input"
