@@ -14,12 +14,8 @@ var app = new Vue({
   el: "#app",
   data: appData,
   methods: {
-    refresh: (e) => {
-      render();
-    },
-    addItem: (e) => {
-      addItem();
-    },
+    refresh: render,
+    addItem: addItem,
     removeItem: removeItem,
     lockItem: lockItem,
     autoLockItem: autoLockItem,

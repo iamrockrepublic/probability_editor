@@ -6,66 +6,112 @@
     <!-- chart需要放到本地 -->
     <script src="./thirdparty/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div class="chart-continaer">
       <canvas id="myChart" width="400" height="150"></canvas>
-      <div id="app">
+      <div id="app" class="mx-2">
         <div id="info-container" v-for="(item, index) in probItems">
-          <div>
-            <span
-              >价值: {{item.value}} 概率: {{item.current_prob | toFixed(4)}}
-              有效区间: [{{item.min_valid_prob | toFixed(4) }},
-              {{item.max_valid_prob | toFixed(4) }}]
-            </span>
-            <input
-              type="text"
-              v-model="item.fixed_prob"
-              placeholder="锁定概率"
-              @keyup.enter="autoLockItem(index)"
-            />
-            <input
-              type="checkbox"
-              v-model="item.is_fixed"
-              @change="lockItem(index)"
-            />
-            <label>锁定</label>
-            <button @click="removeItem(index)">移除</button>
+          <div class="row d-flex align-items-center mb-2">
+            <div class="col-md-4">
+              <span
+                >价值: {{item.value}} 概率: {{item.current_prob | toFixed(4)}}
+                有效区间: [{{item.min_valid_prob | toFixed(4) }},
+                {{item.max_valid_prob | toFixed(4) }}]
+              </span>
+            </div>
+            <div class="col-md-3">
+              <input
+                type="text"
+                v-model="item.fixed_prob"
+                placeholder="锁定概率"
+                @keyup.enter="autoLockItem(index)"
+              />
+              <input
+                type="checkbox"
+                v-model="item.is_fixed"
+                @change="lockItem(index)"
+              />
+              <label>锁定</label>
+            </div>
+            <div class="col-md-1">
+              <button class="btn btn-primary btn-sm" @click="removeItem(index)">
+                移除
+              </button>
+            </div>
           </div>
         </div>
-        <div id="add-container">
-          概率调整值:<input
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            v-model="minMaxValue"
-            @input="refresh"
-          />{{minMaxValue}}<br />
-          预计期望:
-          <input
-            type="text"
-            id="expectation_input"
-            v-model="expectation"
-            @keyup.enter="refresh"
-            @change="refresh"
-          /><br />
-          实际期望:
-          <span id="calculated_expectation"
-            >{{calculatedExpectation | toFixed(4)}}</span
-          >
-          <br />
-          实际概率:
-          <span id="calculated_prob">{{calculatedProb | toFixed(4)}}</span>
-          <br />
-          待添加价值:
-          <input
-            type="text"
-            id="add_value_input"
-            placeholder="待添加价值"
-            v-model="toAddValue"
-            @keyup.enter="addItem"
-          />
+        <div>
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <span>概率调整值:</span>
+            </div>
+            <div class="col-md-2">
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                v-model="minMaxValue"
+                @input="refresh"
+              />
+            </div>
+            <div class="col-md-1">
+              <span>{{minMaxValue}}</span>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <span>预计期望:</span>
+            </div>
+            <div class="col-md-2">
+              <input
+                type="text"
+                id="expectation_input"
+                v-model="expectation"
+                @keyup.enter="refresh"
+                @change="refresh"
+              />
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <span>实际期望:</span>
+            </div>
+            <div class="col-md-2">
+              <span>{{calculatedExpectation | toFixed(4)}}</span>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <span>实际概率:</span>
+            </div>
+            <div class="col-md-2">
+              <span>{{calculatedProb | toFixed(4)}}</span>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-md-2">
+              <span>待添加价值:</span>
+            </div>
+            <div class="col-md-2">
+              <input
+                type="text"
+                id="add_value_input"
+                placeholder="待添加价值"
+                v-model="toAddValue"
+                @keyup.enter="addItem"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <p id="err_text"></p>
