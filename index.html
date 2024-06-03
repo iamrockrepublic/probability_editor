@@ -1,27 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>概率计算&编辑</title>
     <!-- chart需要放到本地 -->
     <script src="./thirdparty/chart.js"></script>
-</head>
-<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
     <div class="chart-continaer">
-        <canvas id="myChart" width="400" height="150"></canvas>
-        <div id="info-container">
+      <canvas id="myChart" width="400" height="150"></canvas>
+      <div id="app">
+        <div id="info-container" v-for="(item, index) in probItems">
+          <div>
+            <span
+              >价值: {{item.value}} 概率: {{item.current_prob | toFixed(4)}}
+              有效区间: [{{item.min_valid_prob | toFixed(4) }},
+              {{item.max_valid_prob | toFixed(4) }}]
+            </span>
+            <input
+              type="text"
+              v-model="item.fixed_prob"
+              placeholder="锁定概率"
+              @keyup.enter="autoLockItem(index)"
+            />
+            <input
+              type="checkbox"
+              v-model="item.is_fixed"
+              @change="lockItem(index)"
+            />
+            <label>锁定</label>
+            <button @click="removeItem(index)">移除</button>
+          </div>
         </div>
         <div id="add-container">
-            预计期望: <input type="text" id="expectation_input" value="0"><br>
-            实际期望: <span id="calculated_expectation">0</span> <br>
-            实际概率: <span id="calculated_prob">0</span> <br>
-            <br>
-            <input type="text" id="add_value_input" placeholder="待添加价值"> 
-            <input type="button" id="add_btn" value="添加"> 
+          预计期望:
+          <input
+            type="text"
+            id="expectation_input"
+            v-model="expectation"
+            @keyup.enter="refresh"
+            @change="refresh"
+          /><br />
+          实际期望:
+          <span id="calculated_expectation"
+            >{{calculatedExpectation | toFixed(4)}}</span
+          >
+          <br />
+          实际概率:
+          <span id="calculated_prob">{{calculatedProb | toFixed(4)}}</span>
+          <br />
+          <br />
+          <input
+            type="text"
+            id="add_value_input"
+            placeholder="待添加价值"
+            v-model="toAddValue"
+            @keyup.enter="addItem"
+          />
         </div>
-        <p id="err_text"></p>        
       </div>
+      <p id="err_text"></p>
+    </div>
 
     <script src="./probChart.js"></script>
-</body>
+  </body>
 </html>
